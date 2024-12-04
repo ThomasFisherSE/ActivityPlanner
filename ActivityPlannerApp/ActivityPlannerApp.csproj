@@ -9,9 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\star.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\star.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="MVVM\View\" />
-    <Folder Include="MVVM\Model\" />
-    <Folder Include="Themes\" />
   </ItemGroup>
 
 </Project>

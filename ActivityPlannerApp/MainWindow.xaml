@@ -19,6 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -61,5 +62,45 @@
                 </StackPanel>
             </Grid>
         </Border>
+
+        <Grid Background="#24272b"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Activities"
+                   VerticalAlignment="Center"
+                   FontWeight="Medium"
+                   Foreground="Gray"
+                   Margin="8,0,0,0"/>
+
+            <ListView ItemsSource="{Binding Activities}"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Grid.Row="1"
+                      ItemContainerStyle="{StaticResource ActivityCard}"/>
+        </Grid>
+
+        <Grid Background="#24272b"
+              Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Locations"
+                   VerticalAlignment="Center"
+                   FontWeight="Medium"
+                   Foreground="Gray"
+                   Margin="8,0,0,0"/>
+
+            <ListView ItemsSource="{Binding Locations}"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Grid.Row="1"
+                      ItemContainerStyle="{StaticResource LocationCard}"/>
+        </Grid>
     </Grid>
 </Window>

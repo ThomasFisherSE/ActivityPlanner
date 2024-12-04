@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:ActivityPlannerApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./Themes/ActivityCard.xaml"/>
+                <ResourceDictionary Source="./Themes/LocationCard.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
