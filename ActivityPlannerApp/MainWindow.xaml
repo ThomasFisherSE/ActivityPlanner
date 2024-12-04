@@ -1,0 +1,65 @@
+﻿<Window x:Class="ActivityPlannerApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ActivityPlannerApp" xmlns:viewModel="clr-namespace:ActivityPlannerApp.MVVM.ViewModel"
+        mc:Ignorable="d"
+        Height="650" Width="1200"
+        Background="#2a2e37"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip">
+
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.ColumnSpan="2"
+                Background="#1e2123"
+                MouseDown="Border_MouseDown">
+            <Grid HorizontalAlignment="Stretch">
+                <Label Content="Activity Planner"
+                       Foreground="Gray"
+                       FontWeight="SemiBold"/>
+                
+                <StackPanel HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+                    <Button Width="20" Height="20"
+                            Content="🗕︎"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Click="ButtonMinimize_Click"/>
+                    
+                    <Button Width="20" Height="20"
+                            Content="🗗︎"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Click="ButtonMaximize_Click"/>
+
+                    <Button Width="20" Height="20"
+                            Content="🗙︎"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Click="ButtonClose_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
