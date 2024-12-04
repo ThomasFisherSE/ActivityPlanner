@@ -14,17 +14,26 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="225" MinWidth="175" MaxWidth="400"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+
+        <GridSplitter Grid.Column="1"
+                      Grid.Row="1"
+                      Grid.RowSpan="2"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Stretch"
+                      Background="#1b1e21"
+                      Width="6"/>
 
         <Border Grid.ColumnSpan="2"
                 Background="#1e2123"
@@ -33,7 +42,7 @@
                 <Label Content="Activity Planner"
                        Foreground="Gray"
                        FontWeight="SemiBold"/>
-                
+
                 <StackPanel HorizontalAlignment="Right"
                             Orientation="Horizontal">
                     <Button Width="20" Height="20"
@@ -43,7 +52,7 @@
                             Foreground="Gray"
                             FontWeight="Bold"
                             Click="ButtonMinimize_Click"/>
-                    
+
                     <Button Width="20" Height="20"
                             Content="🗗︎"
                             Background="Transparent"
