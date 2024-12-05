@@ -19,14 +19,18 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <!--Title bar row-->
             <RowDefinition Height="25" />
+            <!--Main body row-->
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
+            <!--Sidebar column-->
             <ColumnDefinition Width="225"
                               MinWidth="175"
                               MaxWidth="400" />
+            <!--Main body column-->
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -38,6 +42,7 @@
                       Background="#1b1e21"
                       Width="6" />
 
+        <!--#region Title Bar-->
         <Border Grid.ColumnSpan="2"
                 Background="#1e2123"
                 MouseDown="Border_MouseDown">
@@ -77,7 +82,8 @@
                 </StackPanel>
             </Grid>
         </Border>
-
+        <!--#endregion-->
+        
         <!--#region Sidebar-->
         <Border Grid.Row="1">
             <Grid>
@@ -133,5 +139,77 @@
             </Grid>
         </Border>
         <!--#endregion-->
+
+        <Border Grid.Row="1"
+                Grid.Column="1"
+                Margin="16,10,10,10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <!--Table border-->
+                <Border Grid.ColumnSpan="7"
+                        Grid.RowSpan="24"
+                        BorderBrush="Gray"
+                        BorderThickness="1,1,1,1"
+                        CornerRadius="10" />
+                
+                <!--Header row border-->
+                <Border Grid.Row="0"
+                        Grid.ColumnSpan="7"
+                        BorderBrush="Gray"
+                        BorderThickness="1,1,1,1"
+                        CornerRadius="10,10,0,0" />
+                
+                <!--Header column border-->
+                <Border Grid.Column="0"
+                        Grid.RowSpan="24"
+                        BorderBrush="Gray"
+                        BorderThickness="1,1,1,1"
+                        CornerRadius="10,0,0,10" />
+
+            </Grid>
+        </Border>
     </Grid>
 </Window>
