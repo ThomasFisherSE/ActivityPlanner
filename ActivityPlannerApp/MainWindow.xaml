@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ActivityPlannerApp"
         xmlns:viewModel="clr-namespace:ActivityPlannerApp.MVVM.ViewModel"
+        xmlns:view="clr-namespace:ActivityPlannerApp.MVVM.View"
         mc:Ignorable="d"
         Height="650"
         Width="1200"
@@ -140,76 +141,12 @@
         </Border>
         <!--#endregion-->
 
+        <!--TODO: The x margin is 6 pixels wider to account for the grid splitter, could be cleaner -->
         <Border Grid.Row="1"
                 Grid.Column="1"
                 Margin="16,10,10,10">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150" />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <!--Table border-->
-                <Border Grid.ColumnSpan="7"
-                        Grid.RowSpan="24"
-                        BorderBrush="Gray"
-                        BorderThickness="1,1,1,1"
-                        CornerRadius="10" />
-                
-                <!--Header row border-->
-                <Border Grid.Row="0"
-                        Grid.ColumnSpan="7"
-                        BorderBrush="Gray"
-                        BorderThickness="1,1,1,1"
-                        CornerRadius="10,10,0,0" />
-                
-                <!--Header column border-->
-                <Border Grid.Column="0"
-                        Grid.RowSpan="24"
-                        BorderBrush="Gray"
-                        BorderThickness="1,1,1,1"
-                        CornerRadius="10,0,0,10" />
-
-            </Grid>
+            <view:TimetableView />
         </Border>
     </Grid>
 </Window>
