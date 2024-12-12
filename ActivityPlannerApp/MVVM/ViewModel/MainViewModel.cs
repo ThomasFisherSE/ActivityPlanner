@@ -8,12 +8,23 @@ namespace ActivityPlannerApp.MVVM.ViewModel
         public ObservableCollection<ActivityModel> Activities { get; set; }
         public ObservableCollection<LocationModel>? Locations { get; set; }
 
+        private bool _shouldAddTestData = true;
+
         public MainViewModel()
         {
             Locations = new ObservableCollection<LocationModel>();
             Activities = new ObservableCollection<ActivityModel>();
 
-            // Test locations
+            if (_shouldAddTestData)
+                AddTestData();
+        }
+
+        private void AddTestData()
+        {
+            if (Locations == null || Activities == null)
+                return;
+
+            // Locations
             LocationModel diner = new LocationModel
             {
                 LocationName = "The Diner",
@@ -32,7 +43,7 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             };
             Locations.Add(restaurant);
 
-            // Test activities
+            // Activities
             Activities.Add(new ActivityModel
             {
                 ActivityName = "Breakfast",
@@ -54,7 +65,7 @@ namespace ActivityPlannerApp.MVVM.ViewModel
                 ActivityLocation = restaurant
             });
 
-            Activities.Add(new ActivityModel 
+            Activities.Add(new ActivityModel
             {
                 ActivityName = "Work"
             });
