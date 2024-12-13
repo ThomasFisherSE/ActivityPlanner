@@ -146,7 +146,7 @@
                 Grid.Column="1"
                 Margin="16,10,10,10">
 
-            <view:TimetableView />
+            <view:TimetableView DataContext="{Binding TimetableViewModel}" />
         </Border>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
 ﻿using ActivityPlannerApp.MVVM.ViewModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -12,11 +13,15 @@ namespace ActivityPlannerApp.MVVM.View
         public TimetableView()
         {
             InitializeComponent();
+            DataContextChanged += TimetableView_DataContextChanged;
+        }
 
-            TimetableViewModel viewModel = new TimetableViewModel();
-            DataContext = viewModel;
-
-            AddColumns(viewModel.Days);
+        private void TimetableView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (DataContext is TimetableViewModel timetableViewModel)
+            {
+                AddColumns(timetableViewModel.DayColumns);
+            }
         }
 
         private void AddColumns(IList<DateOnly> days)

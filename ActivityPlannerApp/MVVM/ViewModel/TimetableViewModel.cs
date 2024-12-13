@@ -14,20 +14,34 @@ namespace ActivityPlannerApp.MVVM.ViewModel
 
         public int NumberOfDayColumns { get; set; } = 7;
 
-        public IList<DateOnly> Days { get; }
+        public IList<DateOnly> DayColumns { get; }
 
-        public IList<TimeRange> TimeRanges { get; }
+        public IList<TimeRange> TimeRangeRows { get; }
 
         public TimetableViewModel()
         {
-            Days = GenerateDays(DateOnly.FromDateTime(StartDateTime), NumberOfDayColumns);
-            TimeRanges = GenerateTimeRanges(TimeSpanPerCell);
+            DayColumns = GenerateDayColumnDates(DateOnly.FromDateTime(StartDateTime), NumberOfDayColumns);
+            TimeRangeRows = GenerateTimeRanges(TimeSpanPerCell);
             TimetableCells = GenerateTimetableCells();
+        }
+
+        public void PopulateTimetable(ActivityTimingsModel activityTimingsModel)
+        {
+            foreach(ActivityModel activity in activityTimingsModel.ActivityTimeSlots.Keys)
+            {
+                // Determine the cells that should contain this activity
+                List<TimeSlot> timeSlots = activityTimingsModel.GetTimes(activity);
+                IList<TimetableCell> timetableCells = GetTimetableCells(timeSlots);
+                foreach(TimetableCell timetableCell in timetableCells)
+                {
+                    timetableCell.Content = activity.ActivityName;
+                }
+            }
         }
 
         public IList<TimeRange> GenerateTimeRanges(TimeSpan timeSpan)
         {
-            IList<TimeRange> timeRanges = new List<TimeRange>();
+            IList<TimeRange> timeRanges = [];
 
             TimeOnly startTime = TimeOnly.MinValue;
             bool isEndOfDay = false;
@@ -51,9 +65,9 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             return timeRanges;
         }
 
-        public IList<DateOnly> GenerateDays(DateOnly startDate, int numberOfDays)
+        public IList<DateOnly> GenerateDayColumnDates(DateOnly startDate, int numberOfDays)
         {
-            IList<DateOnly> days = new List<DateOnly>();
+            IList<DateOnly> days = [];
             for (int i = 0; i < numberOfDays; i++)
             {
                 days.Add(startDate.AddDays(i));
@@ -63,16 +77,30 @@ namespace ActivityPlannerApp.MVVM.ViewModel
 
         public ObservableCollection<TimetableCell> GenerateTimetableCells()
         {
-            ObservableCollection<TimetableCell> timetableCells = new ObservableCollection<TimetableCell>();
-            foreach(DateOnly day in Days)
+            ObservableCollection<TimetableCell> timetableCells = [];
+            foreach(DateOnly day in DayColumns)
             {
-                foreach(TimeRange timeRange in TimeRanges)
+                foreach(TimeRange timeRange in TimeRangeRows)
                 {
-                    TimeSlot timeSlot = new TimeSlot(day, timeRange);
+                    TimeSlot timeSlot = new(day, timeRange);
                     timetableCells.Add(new TimetableCell(timeSlot));
                 }
             }
             return timetableCells;
+        }
+
+        private IList<TimetableCell> GetTimetableCells(IList<TimeSlot> timeSlots)
+        {
+            IList<TimetableCell> overlappingCells = [];
+            foreach(TimetableCell timetableCell in TimetableCells)
+            {
+                foreach(TimeSlot timeSlot in timeSlots)
+                {
+                    if (timetableCell.TimeSlot.OverlapsWith(timeSlot))
+                        overlappingCells.Add(timetableCell);
+                }
+            }
+            return overlappingCells;
         }
     }
 }
