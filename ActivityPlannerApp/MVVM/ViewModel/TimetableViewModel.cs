@@ -1,12 +1,13 @@
 ﻿using ActivityPlannerApp.Core;
 using ActivityPlannerApp.MVVM.Model;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ActivityPlannerApp.MVVM.ViewModel
 {
     class TimetableViewModel : ObservableObject
     {
-        public ObservableCollection<TimetableCell> TimetableCells { get; set; }
+        public ObservableCollection<TimetableEntryGridInfo> TimetableEntryGridInfoCollection { get; set; } = [];
 
         public TimeSpan TimeSpanPerCell { get; set; } = TimeSpan.FromHours(1);
 
@@ -14,32 +15,34 @@ namespace ActivityPlannerApp.MVVM.ViewModel
 
         public int NumberOfDayColumns { get; set; } = 7;
 
-        public IList<DateOnly> DayColumns { get; }
+        public IList<DateOnly> ColumnDays { get; }
 
-        public IList<TimeRange> TimeRangeRows { get; }
+        public IList<TimeRange> RowTimeRanges { get; }
 
         public TimetableViewModel()
         {
-            DayColumns = GenerateDayColumnDates(DateOnly.FromDateTime(StartDateTime), NumberOfDayColumns);
-            TimeRangeRows = GenerateTimeRanges(TimeSpanPerCell);
-            TimetableCells = GenerateTimetableCells();
+            ColumnDays = GenerateColumnDays(DateOnly.FromDateTime(StartDateTime), NumberOfDayColumns);
+            RowTimeRanges = GenerateRowTimeRanges(TimeSpanPerCell);
         }
 
         public void PopulateTimetable(ActivityTimingsModel activityTimingsModel)
         {
             foreach(ActivityModel activity in activityTimingsModel.ActivityTimeSlots.Keys)
             {
-                // Determine the cells that should contain this activity
-                List<TimeSlot> timeSlots = activityTimingsModel.GetTimes(activity);
-                IList<TimetableCell> timetableCells = GetTimetableCells(timeSlots);
-                foreach(TimetableCell timetableCell in timetableCells)
+                foreach(TimeSlot timeSlot in activityTimingsModel.GetTimes(activity))
                 {
-                    timetableCell.Content = activity.ActivityName;
+                    TimetableEntry timetableEntry = new(timeSlot, activity.ActivityName);
+
+                    if (TryDetermineGridInfo(timetableEntry, out int row, out int column))
+                    {
+                        TimetableEntryGridInfo timetableEntryGridInfo = new(timetableEntry, row, column);
+                        TimetableEntryGridInfoCollection.Add(timetableEntryGridInfo);
+                    }
                 }
             }
         }
 
-        public IList<TimeRange> GenerateTimeRanges(TimeSpan timeSpan)
+        public IList<TimeRange> GenerateRowTimeRanges(TimeSpan timeSpan)
         {
             IList<TimeRange> timeRanges = [];
 
@@ -65,7 +68,7 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             return timeRanges;
         }
 
-        public IList<DateOnly> GenerateDayColumnDates(DateOnly startDate, int numberOfDays)
+        public IList<DateOnly> GenerateColumnDays(DateOnly startDate, int numberOfDays)
         {
             IList<DateOnly> days = [];
             for (int i = 0; i < numberOfDays; i++)
@@ -75,32 +78,38 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             return days;
         }
 
-        public ObservableCollection<TimetableCell> GenerateTimetableCells()
+        private bool TryDetermineGridInfo(TimetableEntry timetableEntry, out int row, out int column)
         {
-            ObservableCollection<TimetableCell> timetableCells = [];
-            foreach(DateOnly day in DayColumns)
+            TimeSlot timeSlot = timetableEntry.TimeSlot;
+            if (!TryDetermineGridColumn(timeSlot.Date, out column))
             {
-                foreach(TimeRange timeRange in TimeRangeRows)
-                {
-                    TimeSlot timeSlot = new(day, timeRange);
-                    timetableCells.Add(new TimetableCell(timeSlot));
-                }
+                row = -1;
+                return false;
             }
-            return timetableCells;
+
+            return TryDetermineGridRow(timeSlot.TimeRange, out row);
         }
 
-        private IList<TimetableCell> GetTimetableCells(IList<TimeSlot> timeSlots)
+        private bool TryDetermineGridRow(TimeRange timeRange, out int row)
         {
-            IList<TimetableCell> overlappingCells = [];
-            foreach(TimetableCell timetableCell in TimetableCells)
+            for (int i = 0; i < RowTimeRanges.Count; i++)
             {
-                foreach(TimeSlot timeSlot in timeSlots)
+                TimeRange rowTimeRange = RowTimeRanges[i];
+                if (timeRange.OverlapsWith(rowTimeRange))
                 {
-                    if (timetableCell.TimeSlot.OverlapsWith(timeSlot))
-                        overlappingCells.Add(timetableCell);
+                    row = i + 1; // +1 because of header row
+                    return true;
                 }
             }
-            return overlappingCells;
+
+            row = -1;
+            return false;
+        }
+
+        private bool TryDetermineGridColumn(DateOnly day, out int col)
+        {
+            col = ColumnDays.IndexOf(day) + 1; // +1 because of header column
+            return col > 0;
         }
     }
 }

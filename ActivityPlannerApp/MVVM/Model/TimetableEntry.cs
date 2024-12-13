@@ -1,14 +1,14 @@
 ﻿namespace ActivityPlannerApp.MVVM.Model
 {
-    internal class TimetableCell
+    internal class TimetableEntry
     {
         public TimeSlot TimeSlot { get; set; }
 
-        public string Content { get; set; } = string.Empty;
+        public string Content { get; set; }
 
         private const string DefaultContent = "";
 
-        public TimetableCell(TimeSlot timeSlot, string content = DefaultContent)
+        public TimetableEntry(TimeSlot timeSlot, string content = DefaultContent)
         {
             TimeSlot = timeSlot;
             Content = content;
