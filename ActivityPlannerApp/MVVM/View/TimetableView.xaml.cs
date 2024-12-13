@@ -30,7 +30,7 @@ namespace ActivityPlannerApp.MVVM.View
         {
             if (DataContext is TimetableViewModel timetableViewModel)
             {
-                InitializeTimetable(timetableViewModel.ColumnDays, timetableViewModel.RowTimeRanges);
+                InitializeTimetable(timetableViewModel);
                 DisplayTimetableEntries(timetableViewModel.TimetableEntryGridInfoCollection);
             }
         }
@@ -47,7 +47,7 @@ namespace ActivityPlannerApp.MVVM.View
             }
         }
 
-        private void InitializeTimetable(IList<DateOnly> columnDays, IList<TimeRange> rowTimeRanges)
+        private void InitializeTimetable(TimetableViewModel timetableViewModel)
         {
             ColumnDefinitionCollection columnDefinitions = timetableGrid.ColumnDefinitions;
             RowDefinitionCollection rowDefinitions = timetableGrid.RowDefinitions;
@@ -59,10 +59,10 @@ namespace ActivityPlannerApp.MVVM.View
             columnDefinitions.Add(new ColumnDefinition());
 
             // Days
-            InitializeDayColumns(columnDefinitions, columnDays);
+            InitializeDayColumns(columnDefinitions, timetableViewModel.ColumnDays);
 
             // Time range rows
-            InitializeTimeRows(rowDefinitions, rowTimeRanges);
+            InitializeTimeRows(rowDefinitions, timetableViewModel.RowTimeRanges);
         }
 
         private void InitializeDayColumns(ColumnDefinitionCollection columnDefinitions, IList<DateOnly> columnDays)
