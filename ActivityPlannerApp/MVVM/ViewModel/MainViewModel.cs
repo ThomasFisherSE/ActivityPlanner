@@ -9,6 +9,8 @@ namespace ActivityPlannerApp.MVVM.ViewModel
         public ObservableCollection<ActivityModel> Activities { get; set; } = [];
         public ObservableCollection<LocationModel> Locations { get; set; } = [];
 
+        public ActivityTimingsModel ActivityTimings { get; set; } = new ActivityTimingsModel();
+
         private bool _shouldAddTestData = true;
 
         public MainViewModel()
@@ -71,6 +73,17 @@ namespace ActivityPlannerApp.MVVM.ViewModel
                 ActivityName = "Work"
             };
             Activities.Add(work);
+
+            // Activity time slots
+            TimeRange breakfastTimeRange = new TimeRange(new TimeOnly(9, 00), new TimeOnly(10, 00));
+            TimeRange lunchTimeRange = new TimeRange(new TimeOnly(12, 00), new TimeOnly(13, 00));
+            TimeRange dinnerTimeRange = new TimeRange(new TimeOnly(18, 00), new TimeOnly(19, 00));
+            for (int i = 0; i < 7; i++)
+            {
+                DateOnly date = DateTimeUtils.Today.AddDays(i);
+                ActivityTimings.AddActivityToTimeSlot(breakfast, new TimeSlot(date, breakfastTimeRange));
+                ActivityTimings.AddActivityToTimeSlot(breakfast, new TimeSlot(date, lunchTimeRange));
+            }
         }
     }
 }
