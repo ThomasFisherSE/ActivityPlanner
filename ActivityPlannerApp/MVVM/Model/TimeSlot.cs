@@ -11,5 +11,7 @@
             Date = date;
             TimeRange = timeRange;
         }
+
+        public bool OverlapsWith(TimeSlot other) => Date == other.Date && TimeRange.OverlapsWith(other.TimeRange);
     }
 }
