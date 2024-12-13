@@ -6,7 +6,7 @@ namespace ActivityPlannerApp.MVVM.ViewModel
 {
     class TimetableViewModel : ObservableObject
     {
-        public ObservableCollection<ActivitySlot> ActivitySlots { get; set; }
+        public ObservableCollection<TimetableCell> TimetableCells { get; set; }
 
         public TimeSpan TimeSpanPerCell { get; set; } = TimeSpan.FromHours(1);
 
@@ -14,20 +14,20 @@ namespace ActivityPlannerApp.MVVM.ViewModel
 
         public int NumberOfDayColumns { get; set; } = 7;
 
-        public List<DateOnly> Days { get; }
+        public IList<DateOnly> Days { get; }
 
-        public List<TimeRange> TimeRanges { get; }
+        public IList<TimeRange> TimeRanges { get; }
 
         public TimetableViewModel()
         {
             Days = GenerateDays(DateOnly.FromDateTime(StartDateTime), NumberOfDayColumns);
             TimeRanges = GenerateTimeRanges(TimeSpanPerCell);
-            ActivitySlots = GenerateActivitySlots();
+            TimetableCells = GenerateTimetableCells();
         }
 
-        public List<TimeRange> GenerateTimeRanges(TimeSpan timeSpan)
+        public IList<TimeRange> GenerateTimeRanges(TimeSpan timeSpan)
         {
-            List<TimeRange> timeRanges = new List<TimeRange>();
+            IList<TimeRange> timeRanges = new List<TimeRange>();
 
             TimeOnly startTime = TimeOnly.MinValue;
             bool isEndOfDay = false;
@@ -51,9 +51,9 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             return timeRanges;
         }
 
-        public List<DateOnly> GenerateDays(DateOnly startDate, int numberOfDays)
+        public IList<DateOnly> GenerateDays(DateOnly startDate, int numberOfDays)
         {
-            List<DateOnly> days = new List<DateOnly>();
+            IList<DateOnly> days = new List<DateOnly>();
             for (int i = 0; i < numberOfDays; i++)
             {
                 days.Add(startDate.AddDays(i));
@@ -61,19 +61,18 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             return days;
         }
 
-        public ObservableCollection<ActivitySlot> GenerateActivitySlots()
+        public ObservableCollection<TimetableCell> GenerateTimetableCells()
         {
-            ObservableCollection<ActivitySlot> activitySlots = new ObservableCollection<ActivitySlot>();
+            ObservableCollection<TimetableCell> timetableCells = new ObservableCollection<TimetableCell>();
             foreach(DateOnly day in Days)
             {
                 foreach(TimeRange timeRange in TimeRanges)
                 {
-                    ActivitySlot activitySlot = new ActivitySlot(day, timeRange);
-                    activitySlot.Activity = ActivityModel.DefaultActivity;
-                    activitySlots.Add(activitySlot);
+                    TimeSlot timeSlot = new TimeSlot(day, timeRange);
+                    timetableCells.Add(new TimetableCell(timeSlot));
                 }
             }
-            return activitySlots;
+            return timetableCells;
         }
     }
 }

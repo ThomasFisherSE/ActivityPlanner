@@ -28,14 +28,14 @@
     
     <Grid>
         <DataGrid x:Name="timetableDataGrid"
-                  ItemsSource="{Binding ActivitySlots}"
+                  ItemsSource="{Binding TimetableCells}"
                   IsReadOnly="True"
                   AutoGenerateColumns="False" 
                   HeadersVisibility="Column"
                   ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Time" 
-                                    Binding="{Binding TimeRange}"
+                                    Binding="{Binding TimeSlot.TimeRange}"
                                     CellStyle="{StaticResource TimeColumnCellStyle}" />
                 <!--Other columns to be added programmatically-->
             </DataGrid.Columns>

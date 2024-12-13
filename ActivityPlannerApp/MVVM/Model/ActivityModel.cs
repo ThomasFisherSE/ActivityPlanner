@@ -21,10 +21,5 @@
         /// The name of the activit
         /// </summary>
         public string LocationName => ActivityLocation == null ? string.Empty : ActivityLocation.LocationName;
-
-        public static ActivityModel DefaultActivity { get; } = new ActivityModel
-        {
-            ActivityName = "No Activity"
-        };
     }
 }

@@ -19,18 +19,16 @@ namespace ActivityPlannerApp.MVVM.View
             AddColumns(viewModel.Days);
         }
 
-        private void AddColumns(List<DateOnly> days)
+        private void AddColumns(IList<DateOnly> days)
         {
+            // Add a column for each day, with each cell containing the TimetableCell.Content string
             for (int i = 0; i < days.Count; i++)
             {
                 DateOnly day = days[i];
                 DataGridTextColumn column = new DataGridTextColumn
                 {
                     Header = day.ToString("ddd dd/MM/yy"),
-
-                    // Cells in this column should show the activity string for that day at each time range
-                    Binding = new Binding("ActivityString"),
-
+                    Binding = new Binding("Content"),
                     Width = new DataGridLength(1, DataGridLengthUnitType.Star)
                 };
 
