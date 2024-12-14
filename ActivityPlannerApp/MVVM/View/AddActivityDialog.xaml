@@ -1,0 +1,89 @@
+﻿<Window x:Class="ActivityPlannerApp.MVVM.View.AddActivityDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ActivityPlannerApp.MVVM.View"
+        mc:Ignorable="d"
+        Title="Add Activity"
+        Width="400"
+        SizeToContent="Height"
+        Background="#2a2e37"
+        Foreground="White">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button"
+                   BasedOn="{StaticResource DefaultButtonStyle}" />
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <!--Activity name-->
+        <TextBlock Text="Activity Name:"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="10"
+                   VerticalAlignment="Center" />
+        <TextBox Grid.Row="0"
+                 Grid.Column="1"
+                 Margin="10"
+                 Name="ActivityNameTextBox" 
+                 Text="{Binding ActivityName, Mode=TwoWay}"/>
+        
+        <!-- Location -->
+        <TextBlock Text="Location:"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   Margin="10"
+                   VerticalAlignment="Center" />
+        <ComboBox Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="10"
+                  Name="LocationComboBox"
+                  ItemsSource="{Binding LocationOptions}"
+                  DisplayMemberPath="LocationName"
+                  SelectedItem="{Binding SelectedLocation, Mode=TwoWay}">
+        </ComboBox>
+        
+        <!-- Icon -->
+        <TextBlock Text="Icon:"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   Margin="10"
+                   VerticalAlignment="Center" />
+        <Button Grid.Row="2"
+                Grid.Column="1"
+                Margin="10"
+                Name="IconButton"
+                Content="Choose Icon"
+                Click="IconButton_Click" />
+
+        <!-- OK and Cancel buttons -->
+        <StackPanel Grid.Row="3"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="10">
+            <Button Content="OK"
+                    Margin="5"
+                    Click="OkButton_Click" />
+            <Button Content="Cancel"
+                    Margin="5"
+                    Click="CancelButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

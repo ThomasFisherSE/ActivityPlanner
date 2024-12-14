@@ -18,6 +18,13 @@
         <viewModel:MainViewModel />
     </Window.DataContext>
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button"
+                   BasedOn="{StaticResource DefaultButtonStyle}" />
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <!--Title bar row-->
@@ -54,6 +61,10 @@
 
                 <StackPanel HorizontalAlignment="Right"
                             Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button"
+                               BasedOn="{x:Null}" />
+                    </StackPanel.Resources>
                     <Button Width="20"
                             Height="20"
                             Content="🗕︎"
@@ -84,7 +95,7 @@
             </Grid>
         </Border>
         <!--#endregion-->
-        
+
         <!--#region Sidebar-->
         <Border Grid.Row="1">
             <Grid>
@@ -100,6 +111,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition />
+                        <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
 
                     <Label Content="Activities"
@@ -113,6 +125,12 @@
                               BorderThickness="0"
                               Grid.Row="1"
                               ItemContainerStyle="{StaticResource ActivityCard}" />
+
+                    <Button Style="{StaticResource DefaultButtonStyle}"
+                            Grid.Row="2"
+                            Content="+"
+                            Click="ButtonAddActivity_Click">
+                    </Button>
                 </Grid>
                 <!--#endregion-->
 

@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Themes/ActivityCard.xaml"/>
                 <ResourceDictionary Source="./Themes/LocationCard.xaml"/>
+                <ResourceDictionary Source="./Themes/ButtonThemes.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

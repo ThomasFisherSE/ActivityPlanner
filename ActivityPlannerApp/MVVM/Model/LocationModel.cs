@@ -1,6 +1,6 @@
 ﻿namespace ActivityPlannerApp.MVVM.Model
 {
-    internal class LocationModel
+    public class LocationModel
     {
         /// <summary>
         /// The name of the location

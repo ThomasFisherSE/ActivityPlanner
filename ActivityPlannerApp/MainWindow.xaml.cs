@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using ActivityPlannerApp.MVVM.View;
+using ActivityPlannerApp.MVVM.ViewModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ActivityPlannerApp
@@ -36,6 +38,22 @@ namespace ActivityPlannerApp
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void ButtonAddActivity_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is MainViewModel mainViewModel)
+            {
+                AddActivityDialog addActivityDialog = new AddActivityDialog(mainViewModel.Locations);
+                if (addActivityDialog.ShowDialog() == true)
+                {
+                    AddActivityDialogViewModel addActivityDialogViewModel = addActivityDialog.ViewModel;
+                    mainViewModel.AddActivity(
+                        addActivityDialogViewModel.ActivityName,
+                        addActivityDialogViewModel.SelectedLocation,
+                        addActivityDialogViewModel.IconPath);
+                }
+            }
         }
     }
 }

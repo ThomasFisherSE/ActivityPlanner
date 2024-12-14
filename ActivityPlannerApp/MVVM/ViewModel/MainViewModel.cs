@@ -1,5 +1,6 @@
 ﻿using ActivityPlannerApp.Core;
 using ActivityPlannerApp.MVVM.Model;
+using ActivityPlannerApp.MVVM.View;
 using System.Collections.ObjectModel;
 
 namespace ActivityPlannerApp.MVVM.ViewModel
@@ -21,6 +22,18 @@ namespace ActivityPlannerApp.MVVM.ViewModel
                 AddTestData();
 
             TimetableViewModel.PopulateTimetable(ActivityTimings);
+        }
+
+        public ActivityModel AddActivity(string activityName, LocationModel? location, string iconPath)
+        {
+            ActivityModel activity = new()
+            {
+                ActivityName = activityName,
+                ActivityLocation = location,
+                IconImageSource = iconPath
+            };
+            Activities.Add(activity);
+            return activity;
         }
 
         private void AddTestData()
