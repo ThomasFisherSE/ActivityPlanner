@@ -129,8 +129,7 @@
                     <Button Style="{StaticResource DefaultButtonStyle}"
                             Grid.Row="2"
                             Content="+"
-                            Click="ButtonAddActivity_Click">
-                    </Button>
+                            Click="ButtonAddActivity_Click" />
                 </Grid>
                 <!--#endregion-->
 
@@ -140,6 +139,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition />
+                        <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
 
                     <Label Content="Locations"
@@ -153,6 +153,11 @@
                               BorderThickness="0"
                               Grid.Row="1"
                               ItemContainerStyle="{StaticResource LocationCard}" />
+
+                    <Button Style="{StaticResource DefaultButtonStyle}"
+                            Grid.Row="2"
+                            Content="+"
+                            Click="ButtonAddLocation_Click" />
                 </Grid>
                 <!--#endregion-->
             </Grid>

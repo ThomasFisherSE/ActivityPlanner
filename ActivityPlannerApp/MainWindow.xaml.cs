@@ -44,7 +44,7 @@ namespace ActivityPlannerApp
         {
             if (DataContext is MainViewModel mainViewModel)
             {
-                AddActivityDialog addActivityDialog = new AddActivityDialog(mainViewModel.Locations);
+                AddActivityDialog addActivityDialog = new(mainViewModel.Locations);
                 if (addActivityDialog.ShowDialog() == true)
                 {
                     AddActivityDialogViewModel addActivityDialogViewModel = addActivityDialog.ViewModel;
@@ -52,6 +52,19 @@ namespace ActivityPlannerApp
                         addActivityDialogViewModel.ActivityName,
                         addActivityDialogViewModel.SelectedLocation,
                         addActivityDialogViewModel.IconPath);
+                }
+            }
+        }
+
+        private void ButtonAddLocation_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is MainViewModel mainViewModel)
+            {
+                AddLocationDialog addLocationDialog = new();
+                if (addLocationDialog.ShowDialog() == true)
+                {
+                    AddLocationDialogViewModel addLocationDialogViewModel = addLocationDialog.ViewModel;
+                    mainViewModel.AddLocation(addLocationDialogViewModel.LocationName);
                 }
             }
         }

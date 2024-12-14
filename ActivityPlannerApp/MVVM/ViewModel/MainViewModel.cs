@@ -36,6 +36,16 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             return activity;
         }
 
+        public LocationModel AddLocation(string locationName)
+        {
+            LocationModel location = new()
+            {
+                LocationName = locationName
+            };
+            Locations.Add(location);
+            return location;
+        }
+
         private void AddTestData()
         {
             if (Locations == null || Activities == null)
