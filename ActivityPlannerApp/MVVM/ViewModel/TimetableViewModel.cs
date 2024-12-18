@@ -32,9 +32,9 @@ namespace ActivityPlannerApp.MVVM.ViewModel
                 {
                     TimetableEntry timetableEntry = new(timeSlot, activity.ActivityName);
 
-                    if (TryDetermineGridInfo(timetableEntry, out int row, out int column))
+                    if (TryDetermineGridInfo(timetableEntry, out int row, out int column, out int rowSpan))
                     {
-                        TimetableEntryGridInfo timetableEntryGridInfo = new(timetableEntry, row, column);
+                        TimetableEntryGridInfo timetableEntryGridInfo = new(timetableEntry, row, column, rowSpan);
                         TimetableEntryGridInfoCollection.Add(timetableEntryGridInfo);
                     }
                 }
@@ -77,31 +77,42 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             return days;
         }
 
-        private bool TryDetermineGridInfo(TimetableEntry timetableEntry, out int row, out int column)
+        private bool TryDetermineGridInfo(TimetableEntry timetableEntry, out int row, out int column, out int rowSpan)
         {
             TimeSlot timeSlot = timetableEntry.TimeSlot;
-            if (!TryDetermineGridColumn(timeSlot.Date, out column))
+            if (!TryDetermineGridColumn(timeSlot.Date, out column) || 
+                !TryDetermineGridRowInfo(timeSlot.TimeRange, out row, out rowSpan))
             {
+                column = -1;
                 row = -1;
+                rowSpan = -1;
                 return false;
             }
 
-            return TryDetermineGridRow(timeSlot.TimeRange, out row);
+            return true;
         }
 
-        private bool TryDetermineGridRow(TimeRange timeRange, out int row)
+        private bool TryDetermineGridRowInfo(TimeRange timeRange, out int row, out int rowSpan)
         {
             for (int i = 0; i < RowTimeRanges.Count; i++)
             {
-                TimeRange rowTimeRange = RowTimeRanges[i];
-                if (timeRange.OverlapsWith(rowTimeRange))
+                if (DoesTimeRowOverlapWithTimeRange(i, timeRange))
                 {
                     row = i + 1; // +1 because of header row
+
+                    // Found the first row, now check how many rows it overlaps
+                    rowSpan = 1;
+                    while (DoesTimeRowOverlapWithTimeRange(i+1, timeRange))
+                    {
+                        i++;
+                        rowSpan++;
+                    }
                     return true;
                 }
             }
 
             row = -1;
+            rowSpan = -1;
             return false;
         }
 
@@ -109,6 +120,14 @@ namespace ActivityPlannerApp.MVVM.ViewModel
         {
             col = ColumnDays.IndexOf(day) + 1; // +1 because of header column
             return col > 0;
+        }
+
+        private bool DoesTimeRowOverlapWithTimeRange(int rowIndex, TimeRange timeRange)
+        {
+            if (rowIndex >= RowTimeRanges.Count)
+                return false;
+
+            return timeRange.OverlapsWith(RowTimeRanges[rowIndex]);
         }
     }
 }
