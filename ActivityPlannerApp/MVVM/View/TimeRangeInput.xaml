@@ -10,7 +10,7 @@
              Width="Auto"
              Foreground="White">
     <UserControl.Resources>
-        <core:TimeOnlyConverter x:Key="TimeOnlyConverter" />
+        <core:DateTimeToTimeStringConverter x:Key="DateTimeToTimeStringConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -21,7 +21,7 @@
         <TextBox Name="StartTimeTextBox"
                  Grid.Column="0"
                  Margin="10"
-                 Text="{Binding StartTimeAsDateTime, Mode=TwoWay, Converter={StaticResource TimeOnlyConverter}}" />
+                 Text="{Binding StartTimeAsDateTime, Mode=TwoWay, Converter={StaticResource DateTimeToTimeStringConverter}}" />
         <TextBlock Grid.Column="1"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
@@ -29,6 +29,6 @@
         <TextBox Name="EndTimeTextBox"
                  Grid.Column="2"
                  Margin="10"
-                 Text="{Binding EndTimeAsDateTime, Mode=TwoWay, Converter={StaticResource TimeOnlyConverter}}" />
+                 Text="{Binding EndTimeAsDateTime, Mode=TwoWay, Converter={StaticResource DateTimeToTimeStringConverter}}" />
     </Grid>
 </UserControl>

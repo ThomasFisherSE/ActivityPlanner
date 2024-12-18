@@ -3,7 +3,7 @@ using System.Windows.Data;
 
 namespace ActivityPlannerApp.Core
 {
-    public class TimeOnlyConverter : IValueConverter
+    public class DateTimeToTimeStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
