@@ -1,7 +1,6 @@
 ﻿using ActivityPlannerApp.Core;
 using ActivityPlannerApp.MVVM.Model;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace ActivityPlannerApp.MVVM.ViewModel
 {

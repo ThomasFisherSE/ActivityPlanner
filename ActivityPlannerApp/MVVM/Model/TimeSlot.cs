@@ -1,6 +1,6 @@
 ﻿namespace ActivityPlannerApp.MVVM.Model
 {
-    internal struct TimeSlot
+    public struct TimeSlot
     {
         public DateOnly Date { get; set; }
 

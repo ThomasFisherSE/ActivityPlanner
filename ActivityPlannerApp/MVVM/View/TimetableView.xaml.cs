@@ -31,13 +31,35 @@ namespace ActivityPlannerApp.MVVM.View
             if (DataContext is TimetableViewModel timetableViewModel)
             {
                 InitializeTimetable(timetableViewModel);
-                DisplayTimetableEntries(timetableViewModel.TimetableEntryGridInfoCollection);
+                AddTimetableEntries(timetableViewModel.TimetableEntryGridInfoCollection);
+
+                timetableViewModel.TimetableEntryGridInfoCollection.CollectionChanged += TimetableEntryGridInfoCollection_CollectionChanged;
             }
         }
 
-        private void DisplayTimetableEntries(ObservableCollection<TimetableEntryGridInfo> timetableEntryGridInfoCollection)
+        private void TimetableEntryGridInfoCollection_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            foreach(TimetableEntryGridInfo timetableEntryGridInfo in timetableEntryGridInfoCollection)
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    System.Collections.IList? newItems = e.NewItems;
+                    if (newItems != null)
+                    {
+                        AddTimetableEntries(newItems.Cast<TimetableEntryGridInfo>().ToList());
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    // Ignore for now, could handle these types of collection change in the future
+                    break;
+            }
+        }
+
+        private void AddTimetableEntries(IList<TimetableEntryGridInfo> timetableEntryGridInfoItems)
+        {
+            foreach(TimetableEntryGridInfo timetableEntryGridInfo in timetableEntryGridInfoItems)
             {
                 AddBorderedTextBlock(timetableEntryGridInfo.TimetableEntry.Content, 
                     timetableEntryGridInfo.Row, 

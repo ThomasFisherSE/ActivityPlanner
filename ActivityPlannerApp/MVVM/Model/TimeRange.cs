@@ -1,6 +1,6 @@
 ﻿namespace ActivityPlannerApp.MVVM.Model
 {
-    struct TimeRange
+    public struct TimeRange
     {
         public TimeOnly Start { get; set; }
 

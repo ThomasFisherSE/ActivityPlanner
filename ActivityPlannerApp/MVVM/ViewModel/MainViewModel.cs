@@ -46,6 +46,15 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             return location;
         }
 
+        public void AddActivityTiming(ActivityModel activity, TimeSlot timeSlot)
+        {
+            ActivityTimings.AddActivityToTimeSlot(activity, timeSlot);
+
+            // Re-populate timetable
+            // TODO: Just update the cells that need updating instead of repopulating the entire timetable
+            TimetableViewModel.PopulateTimetable(ActivityTimings);
+        }
+
         private void AddTestData()
         {
             if (Locations == null || Activities == null)

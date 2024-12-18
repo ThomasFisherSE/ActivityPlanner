@@ -1,4 +1,5 @@
-﻿using ActivityPlannerApp.MVVM.View;
+﻿using ActivityPlannerApp.MVVM.Model;
+using ActivityPlannerApp.MVVM.View;
 using ActivityPlannerApp.MVVM.ViewModel;
 using System.Windows;
 using System.Windows.Input;
@@ -65,6 +66,22 @@ namespace ActivityPlannerApp
                 {
                     AddLocationDialogViewModel addLocationDialogViewModel = addLocationDialog.ViewModel;
                     mainViewModel.AddLocation(addLocationDialogViewModel.LocationName);
+                }
+            }
+        }
+
+        private void ActivitiesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (ActivitiesList.SelectedItem is ActivityModel selectedActivity)
+            {
+                if (DataContext is MainViewModel mainViewModel)
+                {
+                    SpecifyActivityTimesDialog specifyActivityTimesDialog = new();
+                    if (specifyActivityTimesDialog.ShowDialog() == true)
+                    {
+                        SpecifyActivityTimesDialogViewModel specifyActivityTimesDialogViewModel = specifyActivityTimesDialog.ViewModel;
+                        mainViewModel.AddActivityTiming(selectedActivity, specifyActivityTimesDialogViewModel.TimeSlot);
+                    }
                 }
             }
         }

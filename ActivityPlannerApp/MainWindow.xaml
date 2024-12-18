@@ -120,11 +120,13 @@
                            Foreground="Gray"
                            Margin="8,0,0,0" />
 
-                    <ListView ItemsSource="{Binding Activities}"
+                    <ListView Name="ActivitiesList"
+                              ItemsSource="{Binding Activities}"
                               Background="Transparent"
                               BorderThickness="0"
                               Grid.Row="1"
-                              ItemContainerStyle="{StaticResource ActivityCard}" />
+                              ItemContainerStyle="{StaticResource ActivityCard}"
+                              MouseDoubleClick="ActivitiesList_MouseDoubleClick"/>
 
                     <Button Style="{StaticResource DefaultButtonStyle}"
                             Grid.Row="2"
