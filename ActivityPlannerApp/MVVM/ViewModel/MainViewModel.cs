@@ -1,6 +1,5 @@
 ﻿using ActivityPlannerApp.Core;
 using ActivityPlannerApp.MVVM.Model;
-using ActivityPlannerApp.MVVM.View;
 using System.Collections.ObjectModel;
 
 namespace ActivityPlannerApp.MVVM.ViewModel
@@ -14,14 +13,16 @@ namespace ActivityPlannerApp.MVVM.ViewModel
 
         public TimetableViewModel TimetableViewModel { get; } = new TimetableViewModel();
 
-        private bool _shouldAddTestData = true;
+        private bool _shouldAddTestData = false;
 
         public MainViewModel()
         {
+            LoadData();
+
             if (_shouldAddTestData)
                 AddTestData();
 
-            TimetableViewModel.PopulateTimetable(ActivityTimings);
+            TimetableViewModel.PopulateTimetable(Activities, ActivityTimings);
         }
 
         public ActivityModel AddActivity(string activityName, LocationModel? location, string iconPath)
@@ -52,7 +53,27 @@ namespace ActivityPlannerApp.MVVM.ViewModel
 
             // Re-populate timetable
             // TODO: Just update the cells that need updating instead of repopulating the entire timetable
-            TimetableViewModel.PopulateTimetable(ActivityTimings);
+            TimetableViewModel.PopulateTimetable(Activities, ActivityTimings);
+        }
+
+        public void SaveProjectData()
+        {
+            TimetableProjectData timetableProjectData = new()
+            {
+                Activities = Activities,
+                Locations = Locations,
+                ActivityTimings = ActivityTimings
+            };
+
+            TimetableProjectDataService.SaveProjectData(timetableProjectData);
+        }
+
+        public void LoadData()
+        {
+            TimetableProjectData timetableProjectData = TimetableProjectDataService.LoadProjectData();
+            Activities = new ObservableCollection<ActivityModel>(timetableProjectData.Activities);
+            Locations = new ObservableCollection<LocationModel>(timetableProjectData.Locations);
+            ActivityTimings = timetableProjectData.ActivityTimings;
         }
 
         private void AddTestData()

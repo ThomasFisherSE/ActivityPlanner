@@ -1,12 +1,12 @@
 ﻿namespace ActivityPlannerApp.MVVM.Model
 {
-    internal class ActivityTimingsModel
+    public class ActivityTimingsModel
     {
-        public Dictionary<ActivityModel, List<TimeSlot>> ActivityTimeSlots { get; } = [];
+        public Dictionary<Guid, IList<TimeSlot>> ActivityIdToTimeSlots { get; } = [];
 
         public void AddActivityToTimeSlot(ActivityModel activity, TimeSlot timeSlot)
         {
-            if (ActivityTimeSlots.TryGetValue(activity, out List<TimeSlot>? activityTimeSlots)
+            if (ActivityIdToTimeSlots.TryGetValue(activity.Id, out IList<TimeSlot>? activityTimeSlots)
                 && activityTimeSlots != null)
             {
                 activityTimeSlots.Add(timeSlot);
@@ -16,12 +16,12 @@
                 activityTimeSlots = [timeSlot];
             }
 
-            ActivityTimeSlots[activity] = activityTimeSlots;
+            ActivityIdToTimeSlots[activity.Id] = activityTimeSlots;
         }
 
-        public List<TimeSlot> GetTimes(ActivityModel activity)
+        public IList<TimeSlot> GetTimes(ActivityModel activity)
         {
-            return ActivityTimeSlots[activity];
+            return ActivityIdToTimeSlots.TryGetValue(activity.Id, out IList<TimeSlot>? value) ? value : [];
         }
     }
 }

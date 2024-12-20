@@ -24,9 +24,9 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             RowTimeRanges = GenerateRowTimeRanges(TimeSpanPerCell);
         }
 
-        public void PopulateTimetable(ActivityTimingsModel activityTimingsModel)
+        public void PopulateTimetable(IList<ActivityModel> activities, ActivityTimingsModel activityTimingsModel)
         {
-            foreach(ActivityModel activity in activityTimingsModel.ActivityTimeSlots.Keys)
+            foreach(ActivityModel activity in activities)
             {
                 foreach(TimeSlot timeSlot in activityTimingsModel.GetTimes(activity))
                 {

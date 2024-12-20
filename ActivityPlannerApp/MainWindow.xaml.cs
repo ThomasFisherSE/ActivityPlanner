@@ -1,6 +1,7 @@
 ﻿using ActivityPlannerApp.MVVM.Model;
 using ActivityPlannerApp.MVVM.View;
 using ActivityPlannerApp.MVVM.ViewModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -11,9 +12,39 @@ namespace ActivityPlannerApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel _viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContextChanged += MainWindow_DataContextChanged;
+            CacheMainViewModel();
+
+            if (_viewModel == null)
+                throw new NullReferenceException($"{nameof(MainWindow)} view model is null");
+        }
+
+        private void CacheMainViewModel()
+        {
+            if (DataContext is MainViewModel viewModel)
+            {
+                _viewModel = viewModel;
+            }
+            else
+            {
+                DataContext = _viewModel = new MainViewModel();
+            }
+        }
+
+        private void MainWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            CacheMainViewModel();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            _viewModel.SaveProjectData();
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
