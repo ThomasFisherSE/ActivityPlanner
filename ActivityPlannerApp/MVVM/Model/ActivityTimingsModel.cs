@@ -2,7 +2,7 @@
 {
     public class ActivityTimingsModel
     {
-        public Dictionary<Guid, IList<TimeSlot>> ActivityIdToTimeSlots { get; } = [];
+        public IDictionary<Guid, IList<TimeSlot>> ActivityIdToTimeSlots { get; set; } = new Dictionary<Guid, IList<TimeSlot>>();
 
         public void AddActivityToTimeSlot(ActivityModel activity, TimeSlot timeSlot)
         {
