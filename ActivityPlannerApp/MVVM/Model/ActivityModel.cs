@@ -1,7 +1,12 @@
 ﻿namespace ActivityPlannerApp.MVVM.Model
 {
-    internal class ActivityModel
+    public class ActivityModel
     {
+        /// <summary>
+        /// The activity's unique identifier
+        /// </summary>
+        public Guid Id { get; set; } = Guid.NewGuid();
+
         /// <summary>
         /// The name of the activity
         /// </summary>
