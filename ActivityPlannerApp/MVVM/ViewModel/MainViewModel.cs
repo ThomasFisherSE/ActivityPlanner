@@ -31,9 +31,12 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             ActivityModel activity = new()
             {
                 ActivityName = activityName,
-                ActivityLocation = location,
-                IconImageSource = iconPath
+                ActivityLocation = location
             };
+
+            if (!string.IsNullOrEmpty(iconPath))
+                activity.IconImageSource = iconPath;
+
             Activities.Add(activity);
             return activity;
         }
