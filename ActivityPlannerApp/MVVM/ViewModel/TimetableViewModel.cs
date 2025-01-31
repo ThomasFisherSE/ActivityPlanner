@@ -12,8 +12,6 @@ namespace ActivityPlannerApp.MVVM.ViewModel
 
         public DateTime StartDateTime { get; set; } = DateTime.Now;
 
-        public int NumberOfDayColumns { get; set; } = 7;
-
         /// <summary>
         /// Constructor
         /// </summary>
