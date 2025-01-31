@@ -5,25 +5,25 @@ namespace ActivityPlannerApp.MVVM.Model
 {
     internal class TimetableEntry : ObservableObject
     {
-        private TimeSlot timeSlot;
-        private string content = string.Empty;
+        private TimeSlot _timeSlot;
+        private string _content = string.Empty;
 
         public TimeSlot TimeSlot
         {
-            get => timeSlot;
+            get => _timeSlot;
             set
             {
-                timeSlot = value;
+                _timeSlot = value;
                 OnPropertyChanged(nameof(TimeSlot));
             }
         }
 
         public string Content
         {
-            get => content;
+            get => _content;
             set
             {
-                content = value;
+                _content = value;
                 OnPropertyChanged(nameof(Content));
             }
         }
