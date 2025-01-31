@@ -5,11 +5,8 @@ namespace ActivityPlannerApp.MVVM.Model
 {
     internal class TimetableEntry : ObservableObject
     {
-        private const string DefaultBackgroundColorHex = "#2a2e37";
-
         private TimeSlot timeSlot;
         private string content = string.Empty;
-        Brush color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(DefaultBackgroundColorHex));
 
         public TimeSlot TimeSlot
         {
@@ -31,20 +28,23 @@ namespace ActivityPlannerApp.MVVM.Model
             }
         }
 
-        public Brush Color
+        public Color Color
         {
-            get => color;
+            get => Brush.Color;
             set
             {
-                color = value;
+                Brush.Color = value;
                 OnPropertyChanged(nameof(Color));
             }
         }
 
-        public TimetableEntry(TimeSlot timeSlot, string content)
+        public SolidColorBrush Brush { get; } = new SolidColorBrush();
+
+        public TimetableEntry(TimeSlot timeSlot, string content, Color color)
         {
             TimeSlot = timeSlot;
             Content = content;
+            Color = color;
         }
 
         #region SfScheduler Appointment Properties (*Prototyping Only*)

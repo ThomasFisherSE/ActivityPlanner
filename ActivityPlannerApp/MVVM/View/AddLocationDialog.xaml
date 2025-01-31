@@ -1,4 +1,4 @@
-﻿<Window x:Class="ActivityPlannerApp.MVVM.View.AddLocationDialog"
+﻿<Window xmlns:syncfusion="http://schemas.syncfusion.com/wpf"  x:Class="ActivityPlannerApp.MVVM.View.AddLocationDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,6 +21,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -40,9 +41,21 @@
                  Margin="10"
                  Name="LocationNameTextBox"
                  Text="{Binding LocationName, Mode=TwoWay}" />
+        
+        <!--Location color-->
+        <TextBlock Text="Location Color:"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   Margin="10"
+                   VerticalAlignment="Center" />
+        <syncfusion:ColorPicker Grid.Row="1"
+                 Grid.Column="1"
+                 Margin="10"
+                 Name="LocationColorPicker"
+                 Color="{Binding LocationColor, Mode=TwoWay}" />
 
         <!-- OK and Cancel buttons -->
-        <StackPanel Grid.Row="1"
+        <StackPanel Grid.Row="2"
                     Grid.ColumnSpan="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"

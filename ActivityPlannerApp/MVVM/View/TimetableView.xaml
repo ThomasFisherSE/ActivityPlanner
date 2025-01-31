@@ -62,7 +62,7 @@
             <syncfusion:AppointmentMapping Subject="Content"
                                            StartTime="From"
                                            EndTime="To"
-                                           AppointmentBackground="Color" />
+                                           AppointmentBackground="Brush" />
         </syncfusion:SfScheduler.AppointmentMapping>
     </syncfusion:SfScheduler>
 </UserControl>

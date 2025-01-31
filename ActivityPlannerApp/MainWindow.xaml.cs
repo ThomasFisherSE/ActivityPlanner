@@ -96,7 +96,7 @@ namespace ActivityPlannerApp
                 if (addLocationDialog.ShowDialog() == true)
                 {
                     AddLocationDialogViewModel addLocationDialogViewModel = addLocationDialog.ViewModel;
-                    mainViewModel.AddLocation(addLocationDialogViewModel.LocationName);
+                    mainViewModel.AddLocation(addLocationDialogViewModel.LocationName, addLocationDialogViewModel.LocationColor);
                 }
             }
         }

@@ -1,4 +1,6 @@
-﻿namespace ActivityPlannerApp.MVVM.Model
+﻿using System.Windows.Media;
+
+namespace ActivityPlannerApp.MVVM.Model
 {
     public class ActivityModel
     {
@@ -26,5 +28,7 @@
         /// The name of the activit
         /// </summary>
         public string LocationName => ActivityLocation == null ? string.Empty : ActivityLocation.LocationName;
+
+        public Color Color => ActivityLocation == null ? LocationModel.DefaultLocationColor : ActivityLocation.Color;
     }
 }

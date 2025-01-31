@@ -1,6 +1,7 @@
 ﻿using ActivityPlannerApp.Core;
 using ActivityPlannerApp.MVVM.Model;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 
 namespace ActivityPlannerApp.MVVM.ViewModel
 {
@@ -37,11 +38,12 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             return activity;
         }
 
-        public LocationModel AddLocation(string locationName)
+        public LocationModel AddLocation(string locationName, Color color)
         {
             LocationModel location = new()
             {
-                LocationName = locationName
+                LocationName = locationName,
+                Color = color
             };
             Locations.Add(location);
             return location;
