@@ -6,6 +6,10 @@
 
         public TimeRange TimeRange { get; set; }
 
+        public DateTime Start => new DateTime(Date, TimeRange.Start);
+
+        public DateTime End => new DateTime(Date, TimeRange.End);
+
         public TimeSlot(DateOnly date, TimeRange timeRange)
         {
             Date = date;

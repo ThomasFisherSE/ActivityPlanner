@@ -50,10 +50,7 @@ namespace ActivityPlannerApp.MVVM.ViewModel
         public void AddActivityTiming(ActivityModel activity, TimeSlot timeSlot)
         {
             ActivityTimings.AddActivityToTimeSlot(activity, timeSlot);
-
-            // Re-populate timetable
-            // TODO: Just update the cells that need updating instead of repopulating the entire timetable
-            TimetableViewModel.PopulateTimetable(Activities, ActivityTimings);
+            TimetableViewModel.CreateTimetableEntry(activity, timeSlot);
         }
 
         public void SaveProjectData()

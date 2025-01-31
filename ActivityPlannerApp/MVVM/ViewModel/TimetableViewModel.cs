@@ -6,7 +6,7 @@ namespace ActivityPlannerApp.MVVM.ViewModel
 {
     class TimetableViewModel : ObservableObject
     {
-        public ObservableCollection<TimetableEntryGridInfo> TimetableEntryGridInfoCollection { get; set; } = [];
+        public ObservableCollection<TimetableEntry> TimetableEntries { get; set; } = [];
 
         public TimeSpan TimeSpanPerCell { get; set; } = TimeSpan.FromHours(1);
 
@@ -24,19 +24,22 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             RowTimeRanges = GenerateRowTimeRanges(TimeSpanPerCell);
         }
 
+        public TimetableEntry CreateTimetableEntry(ActivityModel activity, TimeSlot timeSlot)
+        {
+            TimetableEntry timetableEntry = new(timeSlot, activity.ActivityName, activity.Color);
+            TimetableEntries.Add(timetableEntry);
+            return timetableEntry;
+        }
+
         public void PopulateTimetable(IList<ActivityModel> activities, ActivityTimingsModel activityTimingsModel)
         {
+            TimetableEntries.Clear();
+
             foreach(ActivityModel activity in activities)
             {
                 foreach(TimeSlot timeSlot in activityTimingsModel.GetTimes(activity))
                 {
-                    TimetableEntry timetableEntry = new(timeSlot, activity.ActivityName);
-
-                    if (TryDetermineGridInfo(timetableEntry, out int row, out int column, out int rowSpan))
-                    {
-                        TimetableEntryGridInfo timetableEntryGridInfo = new(timetableEntry, row, column, rowSpan);
-                        TimetableEntryGridInfoCollection.Add(timetableEntryGridInfo);
-                    }
+                    CreateTimetableEntry(activity, timeSlot);
                 }
             }
         }
@@ -75,59 +78,6 @@ namespace ActivityPlannerApp.MVVM.ViewModel
                 days.Add(startDate.AddDays(i));
             }
             return days;
-        }
-
-        private bool TryDetermineGridInfo(TimetableEntry timetableEntry, out int row, out int column, out int rowSpan)
-        {
-            TimeSlot timeSlot = timetableEntry.TimeSlot;
-            if (!TryDetermineGridColumn(timeSlot.Date, out column) || 
-                !TryDetermineGridRowInfo(timeSlot.TimeRange, out row, out rowSpan))
-            {
-                column = -1;
-                row = -1;
-                rowSpan = -1;
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool TryDetermineGridRowInfo(TimeRange timeRange, out int row, out int rowSpan)
-        {
-            for (int i = 0; i < RowTimeRanges.Count; i++)
-            {
-                if (DoesTimeRowOverlapWithTimeRange(i, timeRange))
-                {
-                    row = i + 1; // +1 because of header row
-
-                    // Found the first row, now check how many rows it overlaps
-                    rowSpan = 1;
-                    while (DoesTimeRowOverlapWithTimeRange(i+1, timeRange))
-                    {
-                        i++;
-                        rowSpan++;
-                    }
-                    return true;
-                }
-            }
-
-            row = -1;
-            rowSpan = -1;
-            return false;
-        }
-
-        private bool TryDetermineGridColumn(DateOnly day, out int col)
-        {
-            col = ColumnDays.IndexOf(day) + 1; // +1 because of header column
-            return col > 0;
-        }
-
-        private bool DoesTimeRowOverlapWithTimeRange(int rowIndex, TimeRange timeRange)
-        {
-            if (rowIndex >= RowTimeRanges.Count)
-                return false;
-
-            return timeRange.OverlapsWith(RowTimeRanges[rowIndex]);
         }
     }
 }
