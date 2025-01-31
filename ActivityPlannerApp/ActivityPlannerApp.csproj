@@ -18,4 +18,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="syncfusion.ui.wpf.net" Version="28.1.33" />
+  </ItemGroup>
+
 </Project>
