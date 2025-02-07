@@ -4,7 +4,7 @@ namespace ActivityPlannerApp.MVVM.Model
 {
     public class LocationModel
     {
-        private const string DefaultLocationColorHex = "#2a2e37";
+        private const string DefaultLocationColorHex = "#232528";
 
         /// <summary>
         /// The default color to associate with a location
