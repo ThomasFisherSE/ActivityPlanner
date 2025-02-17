@@ -120,13 +120,10 @@
                            Foreground="Gray"
                            Margin="8,0,0,0" />
 
-                    <ListView Name="ActivitiesList"
-                              ItemsSource="{Binding Activities}"
-                              Background="Transparent"
-                              BorderThickness="0"
-                              Grid.Row="1"
-                              ItemContainerStyle="{StaticResource ActivityCard}"
-                              MouseDoubleClick="ActivitiesList_MouseDoubleClick"/>
+                    <view:ActivitiesList x:Name="ActivitiesList"
+                                         Grid.Row="1"
+                                         DataContext="{Binding MainActivitiesListViewModel}"
+                                         ActivityEditRequested="ActivitiesList_ActivityEditRequested" />
 
                     <Button Style="{StaticResource DefaultButtonStyle}"
                             Grid.Row="2"

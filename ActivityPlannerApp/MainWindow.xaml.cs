@@ -1,8 +1,10 @@
-﻿using ActivityPlannerApp.MVVM.Model;
+﻿using ActivityPlannerApp.Core;
+using ActivityPlannerApp.MVVM.Model;
 using ActivityPlannerApp.MVVM.View;
 using ActivityPlannerApp.MVVM.ViewModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ActivityPlannerApp
@@ -101,18 +103,15 @@ namespace ActivityPlannerApp
             }
         }
 
-        private void ActivitiesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ActivitiesList_ActivityEditRequested(object sender, ActivitySelectionEventArgs eventArgs)
         {
-            if (ActivitiesList.SelectedItem is ActivityModel selectedActivity)
+            if (DataContext is MainViewModel mainViewModel)
             {
-                if (DataContext is MainViewModel mainViewModel)
+                SpecifyActivityTimesDialog specifyActivityTimesDialog = new();
+                if (specifyActivityTimesDialog.ShowDialog() == true)
                 {
-                    SpecifyActivityTimesDialog specifyActivityTimesDialog = new();
-                    if (specifyActivityTimesDialog.ShowDialog() == true)
-                    {
-                        SpecifyActivityTimesDialogViewModel specifyActivityTimesDialogViewModel = specifyActivityTimesDialog.ViewModel;
-                        mainViewModel.AddActivityTiming(selectedActivity, specifyActivityTimesDialogViewModel.TimeSlot);
-                    }
+                    SpecifyActivityTimesDialogViewModel specifyActivityTimesDialogViewModel = specifyActivityTimesDialog.ViewModel;
+                    mainViewModel.AddActivityTiming(eventArgs.Activity, specifyActivityTimesDialogViewModel.TimeSlot);
                 }
             }
         }

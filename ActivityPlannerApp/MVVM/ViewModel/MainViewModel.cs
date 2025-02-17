@@ -7,18 +7,19 @@ namespace ActivityPlannerApp.MVVM.ViewModel
 {
     internal class MainViewModel
     {
-        public ObservableCollection<ActivityModel> Activities { get; set; } = [];
         public ObservableCollection<LocationModel> Locations { get; set; } = [];
 
         public ActivityTimingsModel ActivityTimings { get; set; } = new ActivityTimingsModel();
 
         public TimetableViewModel TimetableViewModel { get; } = new TimetableViewModel();
 
+        public ActivitiesListViewModel MainActivitiesListViewModel { get; } = new ActivitiesListViewModel();
+
         public MainViewModel()
         {
             LoadData();
 
-            TimetableViewModel.PopulateTimetable(Activities, ActivityTimings);
+            TimetableViewModel.PopulateTimetable(MainActivitiesListViewModel.Activities, ActivityTimings);
         }
 
         public ActivityModel AddActivity(string activityName, LocationModel? location, string iconPath)
@@ -32,7 +33,7 @@ namespace ActivityPlannerApp.MVVM.ViewModel
             if (!string.IsNullOrEmpty(iconPath))
                 activity.IconImageSource = iconPath;
 
-            Activities.Add(activity);
+            MainActivitiesListViewModel.Activities.Add(activity);
             return activity;
         }
 
@@ -57,7 +58,7 @@ namespace ActivityPlannerApp.MVVM.ViewModel
         {
             TimetableProjectData timetableProjectData = new()
             {
-                Activities = Activities,
+                Activities = MainActivitiesListViewModel.Activities,
                 Locations = Locations,
                 ActivityTimings = ActivityTimings
             };
@@ -68,7 +69,7 @@ namespace ActivityPlannerApp.MVVM.ViewModel
         public void LoadData()
         {
             TimetableProjectData timetableProjectData = TimetableProjectDataService.LoadProjectData();
-            Activities = new ObservableCollection<ActivityModel>(timetableProjectData.Activities);
+            MainActivitiesListViewModel.Activities = new ObservableCollection<ActivityModel>(timetableProjectData.Activities);
             Locations = new ObservableCollection<LocationModel>(timetableProjectData.Locations);
             ActivityTimings = timetableProjectData.ActivityTimings;
         }
