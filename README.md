@@ -8,10 +8,3 @@ The main reason I have implemented this is for holiday planning. For some more i
 
 # Work in Progress
 This application is currently a work in progress that I'm implementing in my spare time, so is not completed yet.
-
-## Future Work
-- Canvas-based timetable view
-  - Currently using a grid, but planning to implement the timetable as a canvas with blocks drawn on it for each activity slot so that activity slots can partially span time ranges
-- Displaying activity icons on timetable
-- Location color coding (allow color specification when adding locations)
-- Improved activity / location creation UI (currently using initial quick implementation using dialogs)
