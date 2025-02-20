@@ -1,4 +1,4 @@
-﻿using ActivityPlannerApp.Core;
+﻿using ActivityPlannerApp.Core.EventHandling;
 using ActivityPlannerApp.MVVM.Model;
 using ActivityPlannerApp.MVVM.ViewModel;
 using System.Windows;

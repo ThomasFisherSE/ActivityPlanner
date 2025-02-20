@@ -1,6 +1,6 @@
 ﻿using ActivityPlannerApp.MVVM.Model;
 
-namespace ActivityPlannerApp.Core
+namespace ActivityPlannerApp.Core.EventHandling
 {
     public class ActivitySelectionEventArgs(ActivityModel activity) : EventArgs
     {
