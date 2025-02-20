@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace ActivityPlannerApp.MVVM.ViewModel
 {
-    public class AddActivityDialogViewModel
+    public class AddActivityDialogViewModel(ObservableCollection<LocationModel> locationOptions)
     {
         public string ActivityName { get; set; } = string.Empty;
 
@@ -11,11 +11,6 @@ namespace ActivityPlannerApp.MVVM.ViewModel
 
         public LocationModel? SelectedLocation { get; set; } = null;
 
-        public ObservableCollection<LocationModel> LocationOptions { get; set; }
-
-        public AddActivityDialogViewModel(ObservableCollection<LocationModel> locationOptions)
-        {
-            LocationOptions = locationOptions;
-        }
+        public ObservableCollection<LocationModel> LocationOptions { get; set; } = locationOptions;
     }
 }
