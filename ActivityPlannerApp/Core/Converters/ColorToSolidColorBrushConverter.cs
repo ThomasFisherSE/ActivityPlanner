@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace ActivityPlannerApp.Core
+namespace ActivityPlannerApp.Core.Converters
 {
     public class ColorToSolidColorBrushConverter : IValueConverter
     {

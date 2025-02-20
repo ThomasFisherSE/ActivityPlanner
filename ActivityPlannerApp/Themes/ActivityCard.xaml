@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:core="clr-namespace:ActivityPlannerApp.Core">
+                    xmlns:converters="clr-namespace:ActivityPlannerApp.Core.Converters">
 
-    <core:StringToBitmapImageConverter x:Key="StringToBitmapImageConverter" />
+    <converters:StringToBitmapImageConverter x:Key="StringToBitmapImageConverter" />
     
     <Style TargetType="ListViewItem"
            x:Key="ActivityCard">

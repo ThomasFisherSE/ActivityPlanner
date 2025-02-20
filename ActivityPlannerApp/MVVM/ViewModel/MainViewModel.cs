@@ -1,4 +1,4 @@
-﻿using ActivityPlannerApp.Core;
+﻿using ActivityPlannerApp.Core.Services;
 using ActivityPlannerApp.MVVM.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Media;

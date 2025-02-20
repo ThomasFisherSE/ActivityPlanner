@@ -4,7 +4,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows;
 
-namespace ActivityPlannerApp.Core
+namespace ActivityPlannerApp.Core.Services
 {
     /// <summary>
     /// Service for saving and loading timetable project data
@@ -19,8 +19,8 @@ namespace ActivityPlannerApp.Core
 
         private static readonly TimetableProjectData emptyProjectData = new();
 
-        private static readonly JsonSerializerOptions serializerOptions = new() 
-        { 
+        private static readonly JsonSerializerOptions serializerOptions = new()
+        {
             WriteIndented = true,
             ReferenceHandler = ReferenceHandler.Preserve
         };
@@ -38,7 +38,7 @@ namespace ActivityPlannerApp.Core
 
                 string projectJsonData = SerializeProjectDataToJson(timetableProjectData);
                 File.WriteAllText(projectDataFilePath, projectJsonData);
-            } 
+            }
             catch (Exception ex)
             {
                 ShowError($"Error while trying to save project data file ({projectDataFilePath}):{Environment.NewLine}{ex.Message}");
@@ -58,7 +58,7 @@ namespace ActivityPlannerApp.Core
             {
                 string jsonData = File.ReadAllText(projectDataFilePath);
                 return DeserializeProjectDataFromJson(jsonData);
-            } 
+            }
             catch (Exception ex)
             {
                 ShowError($"Error while trying to load project data file ({projectDataFilePath}):{Environment.NewLine}{ex.Message}");

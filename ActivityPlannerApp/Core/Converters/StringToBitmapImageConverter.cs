@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace ActivityPlannerApp.Core
+namespace ActivityPlannerApp.Core.Converters
 {
     public class StringToBitmapImageConverter : IValueConverter
     {

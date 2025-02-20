@@ -4,13 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ActivityPlannerApp.MVVM.View"
-             xmlns:core="clr-namespace:ActivityPlannerApp.Core"
+             xmlns:converters="clr-namespace:ActivityPlannerApp.Core.Converters"
              mc:Ignorable="d"
              Height="Auto"
              Width="Auto"
              Foreground="White">
     <UserControl.Resources>
-        <core:DateTimeToTimeStringConverter x:Key="DateTimeToTimeStringConverter" />
+        <converters:DateTimeToTimeStringConverter x:Key="DateTimeToTimeStringConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
