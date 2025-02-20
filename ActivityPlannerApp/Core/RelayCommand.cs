@@ -2,16 +2,10 @@
 
 namespace ActivityPlannerApp.Core
 {
-    internal class RelayCommand<T> : ICommand
+    internal class RelayCommand<T>(Action<T?> execute, Func<T?, bool>? canExecute = null) : ICommand
     {
-        private readonly Action<T?> _execute; 
-        private readonly Func<T?, bool>? _canExecute; 
-        
-        public RelayCommand(Action<T?> execute, Func<T?, bool>? canExecute = null) 
-        { 
-            _execute = execute;
-            _canExecute = canExecute;
-        }
+        private readonly Action<T?> _execute = execute;
+        private readonly Func<T?, bool>? _canExecute = canExecute;
 
         public bool CanExecute(object? parameter) 
         { 
