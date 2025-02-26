@@ -1,10 +1,8 @@
 ﻿using ActivityPlannerApp.Core.EventHandling;
-using ActivityPlannerApp.MVVM.Model;
 using ActivityPlannerApp.MVVM.View;
 using ActivityPlannerApp.MVVM.ViewModel;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ActivityPlannerApp
@@ -12,7 +10,7 @@ namespace ActivityPlannerApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private MainViewModel _viewModel;
 
@@ -57,16 +55,20 @@ namespace ActivityPlannerApp
 
         private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+            var mainWindow = Application.Current.MainWindow;
+            if (mainWindow != null)
+                mainWindow.WindowState = WindowState.Minimized;
         }
 
         private void ButtonMaximize_Click(object sender, RoutedEventArgs e)
         {
-            Window mainWindow = Application.Current.MainWindow;
-            if (mainWindow.WindowState != WindowState.Maximized)
-                mainWindow.WindowState = WindowState.Maximized;
-            else
-                mainWindow.WindowState = WindowState.Normal;
+            var mainWindow = Application.Current.MainWindow;
+            if (mainWindow == null)
+                return;
+            
+            mainWindow.WindowState = mainWindow.WindowState != WindowState.Maximized
+                ? WindowState.Maximized
+                : WindowState.Normal;
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
