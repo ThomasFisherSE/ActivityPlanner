@@ -14,7 +14,7 @@ namespace ActivityPlannerApp.MVVM.Model
             set
             {
                 _timeSlot = value;
-                OnPropertyChanged(nameof(TimeSlot));
+                OnPropertyChanged();
             }
         }
 
@@ -24,7 +24,7 @@ namespace ActivityPlannerApp.MVVM.Model
             set
             {
                 _content = value;
-                OnPropertyChanged(nameof(Content));
+                OnPropertyChanged();
             }
         }
 
@@ -34,7 +34,7 @@ namespace ActivityPlannerApp.MVVM.Model
             set
             {
                 Brush.Color = value;
-                OnPropertyChanged(nameof(Color));
+                OnPropertyChanged();
             }
         }
 
@@ -54,16 +54,16 @@ namespace ActivityPlannerApp.MVVM.Model
             get => TimeSlot.Start;
             set
             {
-                TimeSlot updatedTimeSlot = TimeSlot;
+                var updatedTimeSlot = TimeSlot;
                 updatedTimeSlot.Date = DateOnly.FromDateTime(value);
 
-                TimeRange updatedTimeRange = updatedTimeSlot.TimeRange;
+                var updatedTimeRange = updatedTimeSlot.TimeRange;
                 updatedTimeRange.Start = TimeOnly.FromDateTime(value);
 
                 updatedTimeSlot.TimeRange = updatedTimeRange;
                 TimeSlot = updatedTimeSlot;
 
-                OnPropertyChanged(nameof(From));
+                OnPropertyChanged();
             }
         }
 
@@ -72,16 +72,16 @@ namespace ActivityPlannerApp.MVVM.Model
             get => TimeSlot.End;
             set
             {
-                TimeSlot updatedTimeSlot = TimeSlot;
+                var updatedTimeSlot = TimeSlot;
                 updatedTimeSlot.Date = DateOnly.FromDateTime(value);
 
-                TimeRange updatedTimeRange = updatedTimeSlot.TimeRange;
+                var updatedTimeRange = updatedTimeSlot.TimeRange;
                 updatedTimeRange.End = TimeOnly.FromDateTime(value);
 
                 updatedTimeSlot.TimeRange = updatedTimeRange;
                 TimeSlot = updatedTimeSlot;
 
-                OnPropertyChanged(nameof(To));
+                OnPropertyChanged();
             }
         }
         #endregion

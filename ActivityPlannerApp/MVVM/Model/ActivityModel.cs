@@ -24,11 +24,6 @@ namespace ActivityPlannerApp.MVVM.Model
         /// </summary>
         public LocationModel? ActivityLocation { get; set; }
 
-        /// <summary>
-        /// The name of the activit
-        /// </summary>
-        public string LocationName => ActivityLocation == null ? string.Empty : ActivityLocation.LocationName;
-
-        public Color Color => ActivityLocation == null ? LocationModel.DefaultLocationColor : ActivityLocation.Color;
+        public Color Color => ActivityLocation?.Color ?? LocationModel.DefaultLocationColor;
     }
 }

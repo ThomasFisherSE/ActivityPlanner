@@ -6,8 +6,7 @@
 
         public void AddActivityToTimeSlot(ActivityModel activity, TimeSlot timeSlot)
         {
-            if (ActivityIdToTimeSlots.TryGetValue(activity.Id, out IList<TimeSlot>? activityTimeSlots)
-                && activityTimeSlots != null)
+            if (ActivityIdToTimeSlots.TryGetValue(activity.Id, out var activityTimeSlots))
             {
                 activityTimeSlots.Add(timeSlot);
             }

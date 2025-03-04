@@ -1,20 +1,14 @@
 ﻿namespace ActivityPlannerApp.MVVM.Model
 {
-    public struct TimeSlot
+    public struct TimeSlot(DateOnly date, TimeRange timeRange)
     {
-        public DateOnly Date { get; set; }
+        public DateOnly Date { get; set; } = date;
 
-        public TimeRange TimeRange { get; set; }
+        public TimeRange TimeRange { get; set; } = timeRange;
 
-        public DateTime Start => new DateTime(Date, TimeRange.Start);
+        public DateTime Start => new(Date, TimeRange.Start);
 
-        public DateTime End => new DateTime(Date, TimeRange.End);
-
-        public TimeSlot(DateOnly date, TimeRange timeRange)
-        {
-            Date = date;
-            TimeRange = timeRange;
-        }
+        public DateTime End => new(Date, TimeRange.End);
 
         public bool OverlapsWith(TimeSlot other) => Date == other.Date && TimeRange.OverlapsWith(other.TimeRange);
     }
